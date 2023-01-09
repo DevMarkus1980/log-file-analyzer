@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+<div th:fragment="config-navbar">
+    <div class="collapse navbar-collapse justify-content-md-center d-flex flex-wrap" style="background-color: rgba(0, 0, 0, 0.3);">
+        <div class="col-md-auto btn-group-sm mb-3">
+
+            <button type="button" class="btn btn-outline-light rounded-pill"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/cleanup/config/' ? 'active':''}"
+                    onclick="window.location.href='/cleanup/config/'" >
+                <i class="bi bi-journal-text"></i> Tracking Files </button>
+
+            <button type="button" class="btn btn-outline-light rounded-pill"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/cleanup/advanced_config/' ? 'active':''}"
+                    onclick="window.location.href='/cleanup/advanced_config/'" >
+                <i class="bi-journal-check"></i> Advanced Settings </button>
+
+
+        </div>
+    </div>
+</div>
+
+
+</body>

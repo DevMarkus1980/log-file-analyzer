@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="Components/head :: head">
+	<title> home </title>
+</head>
+
+<body>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script th:inline="javascript">
+        var real_data = /*[[${chartData}]]*/'noValue';
+
+        $(document).ready(function() {
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawColumnChart);
+            google.charts.setOnLoadCallback(drawPieChart);
+        });
+        function drawColumnChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Year');
+            data.addColumn('number', 'Views');
+            Object.keys(real_data).forEach(function(key) {
+                data.addRow([ key, real_data[key] ]);
+            });
+            var options = {
+                title : 'Blog stats',
+                hAxis : {
+                    title : 'Years',
+                },
+                vAxis : {
+                    title : 'View Count'
+                },
+                 backgroundColor: 'transparent',
+                 titleTextStyle: {color: 'white'},
+                 textStyle: {color: 'white'},
+                 'width':600,
+                'height':300
+
+            };
+            var chart = new google.visualization.ColumnChart(document
+                    .getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+        function drawPieChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Year');
+            data.addColumn('number', 'Views');
+            Object.keys(real_data).forEach(function(key) {
+                data.addRow([ key, real_data[key] ]);
+            });
+            var options = {
+                'width':800,
+                'height':500,
+                backgroundColor: 'transparent',
+                titleTextStyle: {color: 'white'},
+                is3D: true,
+                legend: {textStyle: {color: 'white'}}
+                };
+            var chart = new google.visualization.PieChart(document
+                    .getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+	<div class="mask p-4 mt-3" style="background-color: rgba(0, 0, 0, 0.2);">
+		<div th:insert="/Components/header :: myheader"></div>
+
+			<div class="d-flex justify-content-center align-items-center h-100">
+				<h1 class="text-white mt-3" >Übersicht</h1>
+			</div>
+			<div class="d-flex justify-content-center align-items-center h-100">
+				<div id="chart_div"></div>
+				<div id="piechart" style="width: 900px; height: 500px;"></div>
+			</div>
+	</div>
+
+</body>
+</html>

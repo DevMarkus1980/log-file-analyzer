@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="Components/head :: head">
+	<title> Table of LogFiles </title>
+</head>
+
+<body>
+<div class="table-responsive p-4 mt-3" style="background-color: rgba(0, 0, 0, 0.2);">
+	<div th:insert="/Components/header :: myheader"></div>
+
+	<table id="dataTable" data-page-length='10' data-order='[[0, "desc"]]'
+		   class="table table-striped" style="width:100%"  th:fragment="tabelleninhalt">
+	<thead class="sticky-top bg-dark text-white shadow">
+	<tr class="">
+		<th>File Size</th>
+		<th>Path</th>
+		<th>Last Modified</th>
+		<th>Created Date</th>
+	</tr>
+
+	</thead>
+	<tbody class="">
+
+	<tr th:each="file : ${filesOnServer}">
+		<td><span th:text="${file.fileSize}"> </span></td>
+		<td><span th:text="${file.path}"></span></td>
+		<td><span th:text="${file.lastModified}"></span></td>
+		<td><span th:text="${file.createdDate}"></span></td>
+	</tr>
+	</tbody>
+</table>
+</div>
+</body>
+
+</html>

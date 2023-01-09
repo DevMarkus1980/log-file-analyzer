@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="Components/head :: head">
+	<title> Table of logs </title>
+</head>
+
+<body >
+
+	<div class="table-responsive p-4 mt-3" data-zone="US/Central" style="background-color: rgba(0, 0, 0, 0.2);">
+		<div th:insert="/Components/header :: myheader"></div>
+
+		<label><h4 class="mt-3">Eingrenzungsfilter</h4></label>
+		<table class="table table-striped ms-5 me-5" style="width:70%">
+			<tbody>
+			<tr></tr>
+			<tr>
+				<th>Von Datum/Uhrzeit:</th>
+				<th>Bis Datum/Uhrzeit:</th>
+			</tr>
+				<tr>
+					<td><input type="text" id="min" name="min"></td>
+					<td><input type="text" id="max" name="max"></td>
+				</tr>
+			</tbody>
+		</table>
+
+	<table id="dataTable" data-page-length='10' data-order='[[0, "desc"]]'
+		   class="table table-striped" style="width:100%"  th:fragment="tabelleninhalt">
+
+		<thead class="sticky-top bg-dark text-white shadow">
+			<tr class="">
+				<th>Application</th>
+				<th>Uhrzeit</th>
+				<th>Log-Status</th>
+				<th>Klasse des Eintrags</th>
+				<th>Auslöser</th>
+				<th>Log-Message</th>
+			</tr>
+
+		</thead>
+		<tbody class="">
+	        <tr th:each="log : ${logs}">
+				<td><span th:text="${log.application}"></span></td>
+				<td><span th:text="${log.dateTime}"></span></td>
+				<td><span th:text="${log.statusError}"></span></td>
+				<td><span th:text="${log.problemClass}"></span></td>
+				<td><span th:text="${log.activationProcess}"> </span></td>
+				<td><span th:text="${log.message}"></span></td>
+           </tr>
+	    </tbody>
+		</table>
+</div>
+
+</body>
+
+</html>

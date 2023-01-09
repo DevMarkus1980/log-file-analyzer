@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="Components/head :: head">
+	<title> Table of LogFiles </title>
+</head>
+
+<body>
+
+<div>
+
+	<form class="was-validated  p-4 mt-3" style="background-color: rgba(0, 0, 0, 0.2);" method="post" th:action="@{/cleanup/advised_config/}" th:object="${advancedConfig}" >
+		<div th:insert="/Components/header :: myheader"></div>
+		<div th:if="${view!='first_setup'}" th:insert="/Sides/Config/Components/navbar :: config-navbar"></div>
+
+		<div hidden><label class="fw-bolder">id</label>
+			<input id="id" class="form-control is valid" autocomplete="off" readonly type="number" th:field="*{id}"/></div>
+
+
+		<div class="container mt-3">
+			<div class="row justify-content-center">
+				<div class="col-4">
+					<label class="fw-bolder"> Alter von Log-Einträgen </label>
+					<div class="input-group">
+						<span class="input-group-text"> Tage </span>
+						<input type="number" th:field="*{notOlderThanDays}" class="form-control is valid" data-toggle="tooltip" data-placement="bottom"
+							   title="Diese Zahl wird in Tagen angeben, desto höher die Zahl je mehr Einträge werden gefunden.
+						   Für die Performance wird Empfohlen sich auf ein kleines Zeitfenster zu beschränken. Als Default werden 14 Tage empfohlen, besser wäre es auf weniger Tage zu gehen."/>
+					</div>
+				</div>
+				<div class="col-4">
+					<label class="fw-bolder"> Limit für Große Dateien </label>
+					<div class="input-group">
+						<span class="input-group-text"> Zeilen </span>
+						<input type="number" th:field="*{maximumLinesToReadEachFile}" class="form-control is valid" data-toggle="tooltip" data-placement="bottom"
+							   title="Mit dieser Funktion wird ein Limit gesetzt, um die einzulesenden Zeilen zu limitieren. (Eine sicherheit für Performance) "/>
+					</div>
+				</div>
+			</div>
+
+			<div class="row justify-content-center">
+				<div class="col-3">
+					<div class="form-check form-switch" >
+						<input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" th:field="*{trackArchivedLogFiles}"
+							   data-toggle="tooltip" data-placement="bottom"
+							   title="Mit dem Aktivieren dieser Funktion, werden auch alle Archivierten Log-Files mit eingelesen. Diese Option
+						  		sollte nur bei einer spezialisierung der Fehlerfindung aktiviert werden, d.h.">
+						<label class="form-check-label" for="flexSwitchCheckDefault"> Archivierte Logs mit einlesen </label>
+					</div>
+
+				<div class="col-4">
+					<div class="btn-group" role="group">
+						<input type="submit" class="btn btn-primary" value="Speichern">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</form>
+
+</div>
+</body>
